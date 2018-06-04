@@ -11,4 +11,6 @@ public class Tabela {
     public String getName() {
 	return name;
     }
+
+    public static class NotFound extends RuntimeException {}
 }

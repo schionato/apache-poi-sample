@@ -6,4 +6,5 @@ public interface Leitor {
 
     List<Tabela> getTabelas();
 
+    Tabela getTabelaPeloNome(String nome);
 }

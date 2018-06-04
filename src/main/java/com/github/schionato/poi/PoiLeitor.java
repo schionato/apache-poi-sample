@@ -36,4 +36,11 @@ public class PoiLeitor implements Leitor {
 	return tabelas;
     }
 
+    @Override
+    public Tabela getTabelaPeloNome(String nome) {
+	return tabelas.stream().filter(t -> t.getName().equals(nome))
+			.findAny()
+			.orElseThrow(Tabela.NotFound::new);
+    }
+
 }

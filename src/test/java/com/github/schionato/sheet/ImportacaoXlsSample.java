@@ -18,11 +18,19 @@ class ImportacaoXlsSample {
     }
 
     @Test
-    void readTabelas() {
+    void lendoTodasTabelas() {
         Leitor leitor = new PoiLeitor(xls);
 
         assertEquals(2, leitor.getTabelas().size());
         assertEquals("tb01", leitor.getTabelas().get(0).getName());
         assertEquals("tb02", leitor.getTabelas().get(1).getName());
+    }
+
+    @Test
+    void buscandoUmaTabelaPeloNome() {
+	Leitor leitor = new PoiLeitor(xls);
+	Tabela tabela = leitor.getTabelaPeloNome("tb02");
+
+	assertEquals("tb02", tabela.getName());
     }
 }
