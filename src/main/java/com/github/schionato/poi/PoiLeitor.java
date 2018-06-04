@@ -1,5 +1,6 @@
 package com.github.schionato.poi;
 
+import com.github.schionato.sheet.ColunaNumerica;
 import com.github.schionato.sheet.ColunaString;
 import com.github.schionato.sheet.Coluna;
 import com.github.schionato.sheet.Leitor;
@@ -40,8 +41,10 @@ public class PoiLeitor implements Leitor {
 			if (type == CellType.STRING) {
 			    Coluna coluna = new ColunaString(cell.getStringCellValue());
 			    linha.add(coluna);
+			} else if (type == CellType.NUMERIC) {
+			    Coluna coluna = new ColunaNumerica(cell.getNumericCellValue());
+			    linha.add(coluna);
 			}
-
 		    });
 		    tabela.add(linha);
 		});

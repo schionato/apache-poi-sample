@@ -70,4 +70,15 @@ class ImportacaoXlsSample {
 	assertEquals("Dinheiro", linha.getColunas().get(4).read());
 	assertEquals("Porcent", linha.getColunas().get(5).read());
     }
+
+    @Test
+    void lendoUmNumero() {
+	int ageColumnIndex = 2;
+
+	Linha linha = new PoiLeitor(xls).getTabelaPeloNome("tb01")
+			.getLinhas()
+			.get(1);
+
+	assertEquals(30.0, linha.getColunas().get(ageColumnIndex).read());
+    }
 }
