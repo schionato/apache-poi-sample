@@ -57,7 +57,7 @@ class ImportacaoXlsxSample {
 			.getLinhas()
 			.get(0);
 
-	assertEquals(6, linha.getColunas().size());
+	assertEquals(6, linha.getCelulas().size());
     }
 
     @Test
@@ -66,12 +66,12 @@ class ImportacaoXlsxSample {
 			.getLinhas()
 			.get(0);
 
-	assertEquals("First name", linha.getColunas().get(0).read());
-	assertEquals("Last name", linha.getColunas().get(1).read());
-	assertEquals("Age", linha.getColunas().get(2).read());
-	assertEquals("Birthdate", linha.getColunas().get(3).read());
-	assertEquals("Dinheiro", linha.getColunas().get(4).read());
-	assertEquals("Porcent", linha.getColunas().get(5).read());
+	assertEquals("First name", linha.getCelulas().get(0).read());
+	assertEquals("Last name", linha.getCelulas().get(1).read());
+	assertEquals("Age", linha.getCelulas().get(2).read());
+	assertEquals("Birthdate", linha.getCelulas().get(3).read());
+	assertEquals("Dinheiro", linha.getCelulas().get(4).read());
+	assertEquals("Porcent", linha.getCelulas().get(5).read());
     }
 
     @Test
@@ -82,7 +82,7 @@ class ImportacaoXlsxSample {
 			.getLinhas()
 			.get(1);
 
-	assertEquals(30.0, linha.getColunas().get(ageColumnIndex).read());
+	assertEquals(30.0, linha.getCelulas().get(ageColumnIndex).read());
     }
 
     @Test
@@ -94,7 +94,7 @@ class ImportacaoXlsxSample {
 			.getLinhas()
 			.get(1);
 
-	assertEquals(data, linha.getColunas().get(birthDateColumnIndex).read());
+	assertEquals(data, linha.getCelulas().get(birthDateColumnIndex).read());
     }
 
     @Test
@@ -105,7 +105,7 @@ class ImportacaoXlsxSample {
 			.getLinhas()
 			.get(1);
 
-	assertEquals(100000.0, linha.getColunas().get(currencyColumnIndex).read());
+	assertEquals(100000.0, linha.getCelulas().get(currencyColumnIndex).read());
     }
 
     @Test
@@ -116,6 +116,6 @@ class ImportacaoXlsxSample {
 			.getLinhas()
 			.get(1);
 
-	assertEquals(1.1, linha.getColunas().get(currencyColumnIndex).read());
+	assertEquals(1.1, linha.getCelulas().get(currencyColumnIndex).read());
     }
 }

@@ -1,10 +1,10 @@
 package com.github.schionato.sheet;
 
-public class ColunaNumerica implements Coluna<Double> {
+public class CelulaNumerica implements Celula<Double> {
 
     private final double raw;
 
-    public ColunaNumerica(double raw) {
+    public CelulaNumerica(double raw) {
 	this.raw = raw;
     }
 

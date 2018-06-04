@@ -2,11 +2,11 @@ package com.github.schionato.sheet;
 
 import java.util.Date;
 
-public class ColunaData implements Coluna<Date> {
+public class CelulaData implements Celula<Date> {
 
     private final Date raw;
 
-    public ColunaData(Date raw) {
+    public CelulaData(Date raw) {
         this.raw = raw;
     }
 

@@ -1,22 +1,17 @@
 package com.github.schionato.sheet;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Linha {
 
-    private final List<Coluna> colunas;
+    private final List<Celula> celulas;
 
-    public Linha() {
-	this.colunas = new ArrayList<>();
+    public Linha(List<Celula> celulas) {
+	this.celulas = celulas;
     }
 
-    public void add(Coluna coluna) {
-        this.colunas.add(coluna);
-    }
-
-    public List<Coluna> getColunas() {
-	return Collections.unmodifiableList(colunas);
+    List<Celula> getCelulas() {
+	return Collections.unmodifiableList(celulas);
     }
 }

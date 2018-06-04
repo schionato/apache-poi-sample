@@ -1,10 +1,10 @@
 package com.github.schionato.sheet;
 
-public class ColunaString implements Coluna<String> {
+public class CelulaString implements Celula<String> {
 
     private final String value;
 
-    public ColunaString(String value) {
+    public CelulaString(String value) {
 	this.value = value;
     }
 

@@ -1,6 +1,6 @@
 package com.github.schionato.sheet;
 
-public interface Coluna<T> {
+public interface Celula<T> {
 
     T read();
 

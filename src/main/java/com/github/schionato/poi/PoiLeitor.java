@@ -1,20 +1,18 @@
 package com.github.schionato.poi;
 
-import com.github.schionato.sheet.ColunaData;
-import com.github.schionato.sheet.ColunaNumerica;
-import com.github.schionato.sheet.ColunaString;
-import com.github.schionato.sheet.Coluna;
+import com.github.schionato.sheet.Celula;
 import com.github.schionato.sheet.Leitor;
 import com.github.schionato.sheet.Linha;
 import com.github.schionato.sheet.Tabela;
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
-import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class PoiLeitor implements Leitor {
@@ -32,12 +30,8 @@ public class PoiLeitor implements Leitor {
 		Tabela tabela = new Tabela(name);
 
 		sheet.rowIterator().forEachRemaining(row -> {
-		    Linha linha = new Linha();
-		    row.cellIterator().forEachRemaining(cell -> {
-			Coluna coluna = new PoiConversorDeColuna(cell).get();
-			linha.add(coluna);
-		    });
-		    tabela.add(linha);
+		    List<Celula> celulas = toCelulas(row);
+		    tabela.add(new Linha(celulas));
 		});
 
 		tabelas.add(tabela);
@@ -45,7 +39,14 @@ public class PoiLeitor implements Leitor {
 	} catch (Exception e) {
 	    throw new RuntimeException(e);
 	}
+    }
 
+    private static List<Celula> toCelulas(Row apacheLinha) {
+        List<Celula> celulas = new ArrayList<>();
+	for (Cell apacheCell : apacheLinha) {
+	    celulas.add(new PoiConversorDeCelula(apacheCell).get());
+	}
+	return celulas;
     }
 
     @Override
