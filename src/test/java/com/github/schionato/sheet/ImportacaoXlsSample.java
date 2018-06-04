@@ -96,4 +96,15 @@ class ImportacaoXlsSample {
 
 	assertEquals(data, linha.getColunas().get(birthDateColumnIndex).read());
     }
+
+    @Test
+    void lendoValorMonetario() {
+	int currencyColumnIndex = 4;
+
+	Linha linha = new PoiLeitor(xls).getTabelaPeloNome("tb01")
+			.getLinhas()
+			.get(1);
+
+	assertEquals(100000.0, linha.getColunas().get(currencyColumnIndex).read());
+    }
 }
