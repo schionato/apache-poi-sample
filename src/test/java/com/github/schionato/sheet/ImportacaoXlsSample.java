@@ -107,4 +107,15 @@ class ImportacaoXlsSample {
 
 	assertEquals(100000.0, linha.getColunas().get(currencyColumnIndex).read());
     }
+
+    @Test
+    void lendoValorPorcentagem() {
+	int currencyColumnIndex = 5;
+
+	Linha linha = new PoiLeitor(xls).getTabelaPeloNome("tb01")
+			.getLinhas()
+			.get(1);
+
+	assertEquals(1.1, linha.getColunas().get(currencyColumnIndex).read());
+    }
 }
