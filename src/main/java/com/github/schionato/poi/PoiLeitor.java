@@ -1,6 +1,7 @@
 package com.github.schionato.poi;
 
 import com.github.schionato.sheet.Leitor;
+import com.github.schionato.sheet.Linha;
 import com.github.schionato.sheet.Tabela;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -18,11 +19,19 @@ public class PoiLeitor implements Leitor {
 
 	try (POIFSFileSystem poi = new POIFSFileSystem(inputStream)) {
 	    HSSFWorkbook workbook = new HSSFWorkbook(poi);
+
 	    this.tabelas = new ArrayList<>(workbook.getNumberOfSheets());
+
 	    for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
 		HSSFSheet sheet = workbook.getSheetAt(i);
+
 		String name = sheet.getSheetName();
 		Tabela tabela = new Tabela(name);
+
+		sheet.rowIterator().forEachRemaining(row -> {
+		    tabela.add(new Linha());
+		});
+
 		tabelas.add(tabela);
 	    }
 	} catch (Exception e) {

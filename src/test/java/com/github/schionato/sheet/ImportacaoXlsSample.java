@@ -40,4 +40,12 @@ class ImportacaoXlsSample {
         Leitor leitor = new PoiLeitor(xls);
         assertThrows(Tabela.NotFound.class, ()-> leitor.getTabelaPeloNome("abc"));
     }
+
+    @Test
+    void verificandoQuantidadeLinhas() {
+	Leitor leitor = new PoiLeitor(xls);
+	Tabela tabela = leitor.getTabelaPeloNome("tb01");
+
+	assertEquals(3, tabela.getLinhas().size());
+    }
 }
