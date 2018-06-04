@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ImportacaoXlsSample {
 
@@ -32,5 +33,11 @@ class ImportacaoXlsSample {
 	Tabela tabela = leitor.getTabelaPeloNome("tb02");
 
 	assertEquals("tb02", tabela.getName());
+    }
+
+    @Test
+    void buscandoUmaTabelaPorUmNomeInvalido() {
+        Leitor leitor = new PoiLeitor(xls);
+        assertThrows(Tabela.NotFound.class, ()-> leitor.getTabelaPeloNome("abc"));
     }
 }
