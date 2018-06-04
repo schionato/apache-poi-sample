@@ -1,4 +1,7 @@
 package com.github.schionato.sheet;
 
-public class Coluna {
+public interface Coluna<T> {
+
+    T read();
+
 }

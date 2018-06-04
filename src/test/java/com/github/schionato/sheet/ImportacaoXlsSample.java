@@ -56,4 +56,18 @@ class ImportacaoXlsSample {
 
 	assertEquals(6, linha.getColunas().size());
     }
+
+    @Test
+    void lendoAPrimeiraLinhaColunaPorColuna() {
+	Linha linha = new PoiLeitor(xls).getTabelaPeloNome("tb01")
+			.getLinhas()
+			.get(0);
+
+	assertEquals("First name", linha.getColunas().get(0).read());
+	assertEquals("Last name", linha.getColunas().get(1).read());
+	assertEquals("Age", linha.getColunas().get(2).read());
+	assertEquals("Birthdate", linha.getColunas().get(3).read());
+	assertEquals("Dinheiro", linha.getColunas().get(4).read());
+	assertEquals("Porcent", linha.getColunas().get(5).read());
+    }
 }

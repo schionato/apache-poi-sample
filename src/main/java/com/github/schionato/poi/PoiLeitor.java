@@ -1,5 +1,6 @@
 package com.github.schionato.poi;
 
+import com.github.schionato.sheet.ColunaString;
 import com.github.schionato.sheet.Coluna;
 import com.github.schionato.sheet.Leitor;
 import com.github.schionato.sheet.Linha;
@@ -7,6 +8,7 @@ import com.github.schionato.sheet.Tabela;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.CellType;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -32,7 +34,14 @@ public class PoiLeitor implements Leitor {
 		sheet.rowIterator().forEachRemaining(row -> {
 		    Linha linha = new Linha();
 		    row.cellIterator().forEachRemaining(cell -> {
-		        linha.add(new Coluna());
+
+		        CellType type = cell.getCellTypeEnum();
+
+			if (type == CellType.STRING) {
+			    Coluna coluna = new ColunaString(cell.getStringCellValue());
+			    linha.add(coluna);
+			}
+
 		    });
 		    tabela.add(linha);
 		});
@@ -40,7 +49,7 @@ public class PoiLeitor implements Leitor {
 		tabelas.add(tabela);
 	    }
 	} catch (Exception e) {
-	    throw new IllegalArgumentException();
+	    throw new RuntimeException(e);
 	}
 
     }
