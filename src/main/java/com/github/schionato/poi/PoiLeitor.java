@@ -1,5 +1,6 @@
 package com.github.schionato.poi;
 
+import com.github.schionato.sheet.Coluna;
 import com.github.schionato.sheet.Leitor;
 import com.github.schionato.sheet.Linha;
 import com.github.schionato.sheet.Tabela;
@@ -29,7 +30,11 @@ public class PoiLeitor implements Leitor {
 		Tabela tabela = new Tabela(name);
 
 		sheet.rowIterator().forEachRemaining(row -> {
-		    tabela.add(new Linha());
+		    Linha linha = new Linha();
+		    row.cellIterator().forEachRemaining(cell -> {
+		        linha.add(new Coluna());
+		    });
+		    tabela.add(linha);
 		});
 
 		tabelas.add(tabela);

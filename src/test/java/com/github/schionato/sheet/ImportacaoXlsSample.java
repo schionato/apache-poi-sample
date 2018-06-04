@@ -43,9 +43,17 @@ class ImportacaoXlsSample {
 
     @Test
     void verificandoQuantidadeLinhas() {
-	Leitor leitor = new PoiLeitor(xls);
-	Tabela tabela = leitor.getTabelaPeloNome("tb01");
+	Tabela tabela = new PoiLeitor(xls).getTabelaPeloNome("tb01");
 
 	assertEquals(3, tabela.getLinhas().size());
+    }
+
+    @Test
+    void leAsColunasDaPrimeiraLinha() {
+	Linha linha = new PoiLeitor(xls).getTabelaPeloNome("tb01")
+			.getLinhas()
+			.get(0);
+
+	assertEquals(6, linha.getColunas().size());
     }
 }
