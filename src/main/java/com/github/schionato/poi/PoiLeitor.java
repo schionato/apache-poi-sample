@@ -23,7 +23,6 @@ public class PoiLeitor implements Leitor {
 
     public PoiLeitor(InputStream inputStream) {
         try (Workbook workbook = WorkbookFactory.create(inputStream)) {
-
 	    this.tabelas = new ArrayList<>(workbook.getNumberOfSheets());
 
 	    for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
@@ -35,21 +34,8 @@ public class PoiLeitor implements Leitor {
 		sheet.rowIterator().forEachRemaining(row -> {
 		    Linha linha = new Linha();
 		    row.cellIterator().forEachRemaining(cell -> {
-
-		        CellType type = cell.getCellTypeEnum();
-
-			if (type == CellType.STRING) {
-			    Coluna coluna = new ColunaString(cell.getStringCellValue());
-			    linha.add(coluna);
-			} else if (type == CellType.NUMERIC) {
-			    if (HSSFDateUtil.isCellDateFormatted(cell)) {
-				Coluna coluna = new ColunaData(cell.getDateCellValue());
-				linha.add(coluna);
-			    } else {
-				Coluna coluna = new ColunaNumerica(cell.getNumericCellValue());
-				linha.add(coluna);
-			    }
-			}
+			Coluna coluna = new PoiConversorDeColuna(cell).get();
+			linha.add(coluna);
 		    });
 		    tabela.add(linha);
 		});
