@@ -1,11 +1,14 @@
 package com.github.schionato.poi;
 
+import com.github.schionato.sheet.ColunaData;
 import com.github.schionato.sheet.ColunaNumerica;
 import com.github.schionato.sheet.ColunaString;
 import com.github.schionato.sheet.Coluna;
 import com.github.schionato.sheet.Leitor;
 import com.github.schionato.sheet.Linha;
 import com.github.schionato.sheet.Tabela;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
@@ -42,8 +45,13 @@ public class PoiLeitor implements Leitor {
 			    Coluna coluna = new ColunaString(cell.getStringCellValue());
 			    linha.add(coluna);
 			} else if (type == CellType.NUMERIC) {
-			    Coluna coluna = new ColunaNumerica(cell.getNumericCellValue());
-			    linha.add(coluna);
+			    if (HSSFDateUtil.isCellDateFormatted(cell)) {
+				Coluna coluna = new ColunaData(cell.getDateCellValue());
+				linha.add(coluna);
+			    } else {
+				Coluna coluna = new ColunaNumerica(cell.getNumericCellValue());
+				linha.add(coluna);
+			    }
 			}
 		    });
 		    tabela.add(linha);

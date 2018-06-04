@@ -5,6 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -80,5 +83,17 @@ class ImportacaoXlsSample {
 			.get(1);
 
 	assertEquals(30.0, linha.getColunas().get(ageColumnIndex).read());
+    }
+
+    @Test
+    void lendoUmaData() throws ParseException {
+	int birthDateColumnIndex = 3;
+	Date data = new SimpleDateFormat("dd/MM/yyyy").parse("22/09/1987");
+
+	Linha linha = new PoiLeitor(xls).getTabelaPeloNome("tb01")
+			.getLinhas()
+			.get(1);
+
+	assertEquals(data, linha.getColunas().get(birthDateColumnIndex).read());
     }
 }
