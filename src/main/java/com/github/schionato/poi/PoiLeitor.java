@@ -7,12 +7,11 @@ import com.github.schionato.sheet.Coluna;
 import com.github.schionato.sheet.Leitor;
 import com.github.schionato.sheet.Linha;
 import com.github.schionato.sheet.Tabela;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -23,14 +22,12 @@ public class PoiLeitor implements Leitor {
     private final List<Tabela> tabelas;
 
     public PoiLeitor(InputStream inputStream) {
-
-	try (POIFSFileSystem poi = new POIFSFileSystem(inputStream)) {
-	    HSSFWorkbook workbook = new HSSFWorkbook(poi);
+        try (Workbook workbook = WorkbookFactory.create(inputStream)) {
 
 	    this.tabelas = new ArrayList<>(workbook.getNumberOfSheets());
 
 	    for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-		HSSFSheet sheet = workbook.getSheetAt(i);
+		Sheet sheet = workbook.getSheetAt(i);
 
 		String name = sheet.getSheetName();
 		Tabela tabela = new Tabela(name);

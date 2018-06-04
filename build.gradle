@@ -15,6 +15,7 @@ dependencies {
     def junitVersion = '5.2.0'
 
     compile 'org.apache.poi:poi:3.17'
+    compile 'org.apache.poi:poi-ooxml:3.17'
     testCompile 'org.junit.jupiter:junit-jupiter-api:' + junitVersion
     testCompile 'org.junit.jupiter:junit-jupiter-engine:' + junitVersion
     testCompile 'org.junit.vintage:junit-vintage-engine:' + junitVersion
