@@ -12,7 +12,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class PoiLeitor implements Leitor {
@@ -25,16 +24,9 @@ public class PoiLeitor implements Leitor {
 
 	    for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
 		Sheet sheet = workbook.getSheetAt(i);
-
 		String name = sheet.getSheetName();
-		Tabela tabela = new Tabela(name);
-
-		sheet.rowIterator().forEachRemaining(row -> {
-		    List<Celula> celulas = toCelulas(row);
-		    tabela.add(new Linha(celulas));
-		});
-
-		tabelas.add(tabela);
+		List<Linha> linhas = toLinhas(sheet);
+		tabelas.add(new Tabela(name, linhas));
 	    }
 	} catch (Exception e) {
 	    throw new RuntimeException(e);
@@ -47,6 +39,15 @@ public class PoiLeitor implements Leitor {
 	    celulas.add(new PoiConversorDeCelula(apacheCell).get());
 	}
 	return celulas;
+    }
+
+    private static List<Linha> toLinhas(Sheet apacheSheet) {
+	List<Linha> linhas = new ArrayList<>();
+        for (Row row: apacheSheet) {
+	    List<Celula> celulas = toCelulas(row);
+	    linhas.add(new Linha(celulas));
+	}
+	return linhas;
     }
 
     @Override
